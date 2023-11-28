@@ -34,6 +34,14 @@ if(!authHeader || !authHeader.startsWith('')) {
 const token = authHeader.split(' ')[0]
 console.log(token)
 
+try {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET)
+  console.log(decoded)
+  
+} catch (error) {
+  throw new CustomAPIError('Not autorized to access this route', 401)
+}
+
 
 
 const luckyNumber = Math.floor(Math.random()*100)
